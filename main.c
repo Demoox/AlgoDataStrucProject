@@ -2,6 +2,7 @@
 #include <time.h>
 
 long getResolution();
+void periodNaive();
 
 int main()
 {
@@ -19,4 +20,10 @@ long getResolution()
         clock_gettime(CLOCK_MONOTONIC, &end);
     } while (start.tv_nsec == end.tv_nsec);
     return (end.tv_nsec - start.tv_nsec);
+}
+
+
+void periodNaive(int* [])
+{
+
 }
