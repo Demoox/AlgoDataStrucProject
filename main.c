@@ -26,6 +26,6 @@ long getResolution()
 void periodNaive(int* [])
 {
     //prova
-
     //prova signed
+    printf();
 }
