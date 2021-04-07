@@ -25,5 +25,5 @@ long getResolution()
 
 void periodNaive(int* [])
 {
-
+    //prova
 }
