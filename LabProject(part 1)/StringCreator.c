@@ -60,7 +60,7 @@ void secondMethod(int n, char *S)
     }
 
     S[n] = '\0';
-    
+
 }
 
-//ctrl + shift + i
+//ctrl + shift + i auto-indent
