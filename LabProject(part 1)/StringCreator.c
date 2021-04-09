@@ -3,43 +3,64 @@
 #include <string.h>
 #include <time.h>
 #include <math.h>
-#define A 1000           //lunghezza minima
-#define MAXLENGTH 500000 //lunghezza massima
+#define A 1000              //lunghezza minima
+#define MAXLENGTH 500000    //lunghezza massima
 
 void firstMethod();
+void secondMethod();
 
 int main()
 {
-
     double B = exp((log(MAXLENGTH) - log(A)) / 99);
+    double n;
 
     for (int j = 0; j < 99; j++)
     {
-
-        double n = A * pow(B, j);
-        //printf("%f\n", n);      test per verificare i numeri ottenuti
-
-        char S[(int)floor(n)];
-        firstMethod((int)floor(n), S);
-        
-        printf("%s\n\n\n", S);
-
+        n = A * pow(B, j);
+        //printf("%f\n", n);      test
     }
+
+    char S[(int)floor(n)];
+
+    //firstMethod((int) floor(n),S);
+    //secondMethod((int) floor(n),S);
+
+    printf("%s\n\n\n", S);
 
     return 0;
 }
 
-void firstMethod(int length, char *S){
+void firstMethod(int length, char *S)
+{
 
-    for(int i=0; i<length; i++){
-        if(rand()%2 == 0)
-            S[i]='a';
+    for (int i = 0; i < length; i++)
+    {
+        if (rand() % 2 == 0)
+            S[i] = 'a';
         else
-            S[i]='b';
+            S[i] = 'b';
     }
 
-    S[length]=0;
+    S[length] = '\0';
+}
 
+void secondMethod(int n, char *S)
+{
+
+    int q = (rand() % n + 1);
+
+    for (int i = 0; i < q; i++)
+    {
+        S[i] = ((rand() % 2) + 'a');
+    }
+
+    for (int i = q; i < n; i++)
+    {
+        S[i] = S[(i - 1) % q + 1];
+    }
+
+    S[n] = '\0';
+    
 }
 
 //ctrl + shift + i
