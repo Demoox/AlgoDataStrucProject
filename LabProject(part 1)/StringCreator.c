@@ -15,19 +15,22 @@ int main()
     double B = exp((log(MAXLENGTH) - log(A)) / 99);
     double n;
 
+    char *S = NULL;
+
     for (int j = 0; j < 99; j++)
     {
         n = A * pow(B, j);
-        //printf("%f\n", n);      test
+
+        S = malloc((int)floor(n) + 1);
+
+        //firstMethod((int) floor(n),S);
+        secondMethod((int) floor(n),S);
+        //thirdMethod((int) floor(n),S);
+
+        printf("%s\n\n\n", S);    //Stampa stringhe generate
+
+        free(S);
     }
-
-    char S[(int)floor(n)];
-
-    //firstMethod((int) floor(n),S);
-    //secondMethod((int) floor(n),S);
-    //thirdMethod((int) floor(n),S);
-
-    printf("%s\n\n\n", S);
 
     return 0;
 }
@@ -69,7 +72,7 @@ void thirdMethod(int n, char *S)
 
     int q = (rand() % n + 1);
 
-    for (int i = 0; i < q-1; i++)
+    for (int i = 0; i < q - 1; i++)
     {
         S[i] = ((rand() % 2) + 'a');
     }
