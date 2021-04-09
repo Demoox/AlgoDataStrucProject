@@ -3,14 +3,14 @@
 
 int periodSmart(char *S);
 
-int main()
+/**int main()
 {
     char S[1000];
     scanf("%999s", S);
     int p = periodSmart(S);
     printf("%d", p);
     return 0;
-}
+}*/
 
 int periodSmart(char *S)
 {
