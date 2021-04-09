@@ -2,7 +2,6 @@
 #include <time.h>
 
 long getResolution();
-void periodNaive();
 
 int main()
 {
@@ -23,9 +22,3 @@ long getResolution()
 }
 
 
-void periodNaive(int* [])
-{
-    //prova
-    //prova signed
-    printf();
-}
