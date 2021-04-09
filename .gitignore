@@ -52,5 +52,6 @@ Mkfile.old
 dkms.conf
 
 #IDE specific folders
-.idea/
+
 *.gpg
+.idea
