@@ -3,11 +3,12 @@
 #include <string.h>
 #include <time.h>
 #include <math.h>
-#define A 1000              //lunghezza minima
-#define MAXLENGTH 500000    //lunghezza massima
+#define A 1000           //lunghezza minima
+#define MAXLENGTH 500000 //lunghezza massima
 
 void firstMethod();
 void secondMethod();
+void thirdMethod();
 
 int main()
 {
@@ -24,6 +25,7 @@ int main()
 
     //firstMethod((int) floor(n),S);
     //secondMethod((int) floor(n),S);
+    //thirdMethod((int) floor(n),S);
 
     printf("%s\n\n\n", S);
 
@@ -60,7 +62,26 @@ void secondMethod(int n, char *S)
     }
 
     S[n] = '\0';
+}
 
+void thirdMethod(int n, char *S)
+{
+
+    int q = (rand() % n + 1);
+
+    for (int i = 0; i < q-1; i++)
+    {
+        S[i] = ((rand() % 2) + 'a');
+    }
+
+    S[q - 1] = 'c';
+
+    for (int i = q; i < n; i++)
+    {
+        S[i] = S[(i - 1) % q + 1];
+    }
+
+    S[n] = '\0';
 }
 
 //ctrl + shift + i auto-indent
