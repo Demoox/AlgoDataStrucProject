@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <math.h>
@@ -16,14 +17,28 @@ int main()
     {
 
         double n = A * pow(B, j);
-        //printf("%f\n", n);      test
+        //printf("%f\n", n);      test per verificare i numeri ottenuti
+
+        char S[(int)floor(n)];
+        firstMethod((int)floor(n), S);
+        
+        printf("%s\n\n\n", S);
 
     }
 
     return 0;
 }
 
-void firstMethod(){
+void firstMethod(int length, char *S){
+
+    for(int i=0; i<length; i++){
+        if(rand()%2 == 0)
+            S[i]='a';
+        else
+            S[i]='b';
+    }
+
+    S[length]=0;
 
 }
 
