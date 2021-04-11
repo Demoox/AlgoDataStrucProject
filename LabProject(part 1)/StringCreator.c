@@ -13,6 +13,7 @@ void firstMethod();
 void secondMethod();
 void thirdMethod();
 long getResolution();
+void plot();
 
 int main()
 {
@@ -20,6 +21,8 @@ int main()
     double n;
 
     char *S = NULL;
+
+    double y[100];
 
     for (int j = 0; j < 99; j++)
     {
@@ -55,8 +58,11 @@ int main()
 
         long tn = (end.tv_nsec - start.tv_nsec) / k; //tempo medio per lunghezza n
 
-        printf("%lu\n", tn);
+        //printf("%lu\n", tn);
+        y[j]=tn;
     }
+
+    plot(y);
 
     return 0;
 }
@@ -119,6 +125,30 @@ long getResolution()
         clock_gettime(CLOCK_MONOTONIC, &end);
     } while (start.tv_nsec == end.tv_nsec);
     return (end.tv_nsec - start.tv_nsec);
+}
+
+void plot(double *y)
+{
+
+    char *commandsForGnuplot[] = {"set title \"Metodo 1\"", "set xlabel \"j\"", "set ylabel \"time\"", "set style line 1 \\ linecolor rgb '#0060ad' \\ linetype 1 linewidth 2 \\ pointtype 7 pointsize 1.5", "plot 'data' with linespoints linestyle 1"};
+    
+    FILE *temp = fopen("data", "w");
+    /*Opens an interface that one can use to send commands as if they were typing into the
+     *     gnuplot command line.  "The -persistent" keeps the plot open even after your
+     *     C program terminates.
+     */
+    FILE *gnuplotPipe = popen("gnuplot -persistent", "w");
+    int i;
+    for (i = 0; i < 99; i++)
+    {
+        fprintf(temp, "%d %lf \n", i+1, y[i]); //Write the data to a temporary file
+    }
+
+    for (i = 0; i < 5; i++)
+    {
+        fprintf(gnuplotPipe, "%s \n", commandsForGnuplot[i]); //Send commands to gnuplot one by one.
+    }
+
 }
 
 //ctrl + shift + i auto-indent
