@@ -2,26 +2,29 @@
 #include <string.h>
 #include <time.h>
 
-int main(){
-    
+int periodNaive();
+
+int main()
+{
+
     char S[1000];
     scanf("%999s", S);
-    int p=periodNaive(S);
+    int p = periodNaive(S);
     printf("%d", p);
     return 0;
 }
 
-
-int periodNaive(char *S){
-
+int periodNaiveMethod1(char *S)
+{
+    int counter = 0;
     int n = strlen(S);
-    for(int p=1; p<=n;p++){
-        for(int i=1; i<=n; i++){
-            if(S[i] == S[i+p]){
+    for (int p = 0; p <= n; p++)
+    {
+        for (int i = 0; i < n - p; i++)
+            if (S[i] != S[i + p])
+            {
                 return p;
-                } else {
-                    return 0;
-                }
             }
-        }
+    }
+    
 }
