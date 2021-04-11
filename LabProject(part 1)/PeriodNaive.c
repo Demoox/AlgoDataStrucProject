@@ -34,7 +34,8 @@ int periodNaive(char *S){
 int main(){
   char S[1000];
   scanf("%999s", S);
-  int p=periodNaive(S);
+  int p=periodNaiveMethod1(S);
+  //int p = periodNaive(S);
   printf("%d", p);
   return 0;
 
