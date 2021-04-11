@@ -2,7 +2,7 @@
 #include <string.h>
 #include <time.h>
 
-int periodNaive();
+int periodNaiveMethod1();
 
 int main()
 {
