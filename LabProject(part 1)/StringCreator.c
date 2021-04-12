@@ -4,7 +4,7 @@
 #include <string.h>
 #include <time.h>
 #include <math.h>
-#include "PeriodSmart.c"
+//#include "PeriodSmart.c"
 #define A 1000           //lunghezza minima
 #define MAXLENGTH 500000 //lunghezza massima
 #define Emax 0.001       //Errore relativo massimo
@@ -67,7 +67,7 @@ void plot();
     return 0;
 }*/
 
-int main()
+/*int main()
 {
     double B = exp((log(MAXLENGTH) - log(A)) / 99);
     double n;
@@ -123,7 +123,7 @@ int main()
     plot(y);
 
     return 0;
-}
+}*/
 
 void firstMethod(int length, char *S)
 {
