@@ -1,20 +1,31 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-/*int periodNaiveMethod1(char *S)
+int periodNaiveMethod1(char *S)
 {
     int n = strlen(S);
-    for (int p = 0; p < n; p++)
+    int counter = 0;
+    for (int p = 1; p <= n; p++)
     {
-        for (int i = 0; i < n - p; i++)
-            if (S[i] == S[i + p])
+        int i;
+        for (i = 0; i < n - p; i++){
+            if (S[i] != S[i + p])
             {
-                return p+i;
+                break;
             }
+        }
+
+        if(i == n - p)
+        return p;
+        
     }
     
 }
-*/
+
+//for più esterno da 1 a n-1, 
+//
+//
+
 
 char *substring(char *S, int a, int b){
     int l=b-a;
