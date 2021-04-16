@@ -19,11 +19,14 @@ int main()
     printf("1- Generazione pseudo-casuale\n");
     printf("2- s(i) = s((i-1) mod q+1)\n");
     printf("3- Variante del metodo 3 con aggiunta di lettera c\n");
+    printf("Metodo da usare: ");
     scanf("%d", &firstChoice);
     printf("\nScegi quale funzione usare:\n");
     printf("1- PeriodNaive\n");
-    printf("2- PeriodSmart");
+    printf("2- PeriodSmart\n");
+    printf("Funzione da usare: ");
     scanf("%d", &secondChoice);
+    
 
     //-----------------------------------------------
 
@@ -71,7 +74,7 @@ int main()
             switch (secondChoice)
             {
             case 1:
-                periodNaive(S);
+                periodNaiveMethod1(S);
                 break;
             case 2:
                 periodSmart(S);

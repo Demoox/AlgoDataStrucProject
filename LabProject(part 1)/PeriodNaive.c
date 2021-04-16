@@ -60,14 +60,14 @@ int periodNaiveMethod2(char *S){      //è giusto, gli indici son giusti
 
 
 
-int main(){
+/*int main(){
   char S[1000];
   scanf("%999s", S);
   int p=periodNaiveMethod2(S);
   printf("%d", p);
   return 0;
 
-}
+}*/
 
 
 
