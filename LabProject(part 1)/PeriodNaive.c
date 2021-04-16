@@ -4,7 +4,6 @@
 int periodNaiveMethod1(char *S)
 {
     int n = strlen(S);
-    int counter = 0;
     for (int p = 1; p <= n; p++)
     {
         int i;
@@ -19,7 +18,7 @@ int periodNaiveMethod1(char *S)
         return p;
         
     }
-    
+    return n;
 }
 
 //for più esterno da 1 a n-1, 
