@@ -185,35 +185,4 @@ long getResolution()
     return (end.tv_nsec - start.tv_nsec);
 }
 
-void plot(double *y)
-{
-
-    char *commandsForGnuplot[] = {"set title \"Metodo 1\"", "set xlabel \"j\"", "set ylabel \"time\"", "set style line 1 \\ linecolor rgb '#0060ad' \\ linetype 1 linewidth 2 \\ pointtype 7 pointsize 1.5", "plot 'data' with linespoints linestyle 1"};
-
-    char *commands[] = {
-        "set title \"Period Smart\"",
-        "set xlabel \"j\"",
-        "set ylabel \"time\"",
-        "set autoscale",
-        /*"set logscale",*/
-        "plot 'data' with lines"};
-
-    FILE *temp = fopen("data", "w");
-    /*Opens an interface that one can use to send commands as if they were typing into the
-     *     gnuplot command line.  "The -persistent" keeps the plot open even after your
-     *     C program terminates.
-     */
-    FILE *gnuplotPipe = popen("gnuplot -persistent", "w");
-    int i;
-    for (i = 0; i < 99; i++)
-    {
-        fprintf(temp, "%d %lf \n", i + 1, y[i]); //Write the data to a temporary file
-    }
-
-    for (i = 0; i < 5; i++)
-    {
-        fprintf(gnuplotPipe, "%s \n", commands[i]); //Send commands to gnuplot one by one.
-    }
-}
-
 //ctrl + shift + i auto-indent

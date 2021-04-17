@@ -7,6 +7,7 @@
 #include "StringCreator.c"
 #include "PeriodSmart.c"
 #include "PeriodNaive.c"
+#include "Plot.c"
 
 #define A 1000           //lunghezza minima
 #define MAXLENGTH 500000 //lunghezza massima
@@ -26,7 +27,6 @@ int main()
     printf("2- PeriodSmart\n");
     printf("Funzione da usare: ");
     scanf("%d", &secondChoice);
-    
 
     //-----------------------------------------------
 
@@ -35,6 +35,7 @@ int main()
 
     char *S = NULL;
 
+    double x[100];
     double y[100];
 
     for (int j = 0; j < 99; j++)
@@ -98,11 +99,20 @@ int main()
 
         long tn = tempo / k;
 
+        x[j] = n;
         y[j] = tn;
     }
     //-----------------------------------------------
 
-    plot(y);
+    switch (secondChoice)
+    {
+    case 1:
+        plot(x, y, "PeriodNaive");
+        break;
+    case 2:
+        plot(x, y, "PeriodSmart");
+        break;
+    }
 
     return 0;
 }
