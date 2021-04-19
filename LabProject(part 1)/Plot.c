@@ -1,23 +1,44 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void plot(double *x, double *y, char *title)
+void plot(double *x, double *y, int title, int desc)
 {
 
-    char *strtemp;
+    char strtitle[57];
 
-    if(strcmp(title, "PeriodNaive")==0)
-        strtemp = "set title \"PeriodNaive\"";
-    else
-        strtemp = "set title \"PeriodSmart\"";
+    switch (title)
+    {
+    case 1:
+        strcat(strtitle, "set title \"PeriodNaive");
+        break;
+    case 2:
+        strcat(strtitle, "set title \"PeriodNaive");
+        break;
+    }
+
+    switch (desc)
+    {
+    case 1:
+        strcat(strtitle, " con metodo creazione stringhe 1\"");
+        break;
+    case 2:
+        strcat(strtitle, " con metodo creazione stringhe 2\"");
+        break;
+    case 3:
+        strcat(strtitle, " con metodo creazione stringhe 3\"");
+        break;
+    }
+
+    printf("%s", strtitle);
 
     char *commands[] = {
-        strtemp,
+        strtitle,
         "set xlabel \"j\"",
         "set ylabel \"time\"",
-        "set autoscale",
-        /*"set logscale",*/
-        "plot 'data' with lines"};
+        /*"set autoscale",*/
+        "set logscale",
+        "plot 'data' with lines"
+        /*"plot 'data' with linespoints pointtype 7"*/};
 
     FILE *temp = fopen("data", "w");
     FILE *gnuplotPipe = popen("gnuplot -persistent", "w");
