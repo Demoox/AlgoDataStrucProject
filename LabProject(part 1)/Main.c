@@ -5,8 +5,8 @@
 #include <time.h>
 #include <math.h>
 #include "StringCreator.c"
-#include "PeriodSmart.c"
-#include "PeriodNaive.c"
+#include "PeriodSmart.h"
+#include "PeriodNaive.h"
 #include "Plot.c"
 
 #define A 1000           //lunghezza minima
