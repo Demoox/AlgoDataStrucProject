@@ -110,13 +110,15 @@ int main()
 
         long tn = tempo / k;
 
-        x[j] = n;
-        y[j] = tn;
+        x[j] = j+1;
+        y[j] = tn/10;
     }
+
+    plotSimple(x, y);
     //-----------------------------------------------
     
     #pragma endregion
-
+/*
     switch (secondChoice)
     {
     case 1:
@@ -126,6 +128,7 @@ int main()
         plot(x, y, "PeriodSmart");
         break;
     }
+    */
 
     return 0;
 }

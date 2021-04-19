@@ -33,14 +33,14 @@ void plot(double *x, double *y, char *title)
     }
 }
 
-void plot(double *x, double *y)
+void plotSimple(double *x, double *y)
 {
 
     char *commands[] = {
         "set xlabel \"j\"",
         "set ylabel \"time\"",
-        /*"set autoscale",*/
-        "set logscale",
+        "set autoscale",
+        //"set logscale",
         "plot 'data' with lines"
         /*"plot 'data' with linespoints pointtype 7"*/};
 
