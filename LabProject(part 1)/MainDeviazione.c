@@ -39,6 +39,7 @@ int main()
     double y[100];
 
     double times[100];
+    double sum = 0.0;
 
 
     
@@ -106,12 +107,26 @@ int main()
             times[j] = tempo;
             printf("%d\n", tempo);
 
+            sum = sum+ tempo;
+
         } while (tempo < ((R / Emax) + R));
+
+        double mean = sum/100;
+
+        double sommatoria = 0.00;
+
+        for(int i = 0; i<n; i++){
+            sommatoria = sommatoria + pow((times[i] - mean),2);
+        }
+
+        double deviation = sqrt(sommatoria/100);
+
+        printf("La deviazione standard vale %f\n", deviation);
 
         long tn = tempo / k;
 
         x[j] = j+1;
-        y[j] = tn/10;
+        y[j] = tn;
     }
 
     plotSimple(x, y);
