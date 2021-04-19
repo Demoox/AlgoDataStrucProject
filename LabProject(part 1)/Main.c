@@ -108,15 +108,7 @@ int main()
     }
     //-----------------------------------------------
 
-    switch (secondChoice)
-    {
-    case 1:
-        plot(x, y, "PeriodNaive");
-        break;
-    case 2:
-        plot(x, y, "PeriodSmart");
-        break;
-    }
+    plot(x, y, secondChoice, firstChoice);
 
     return 0;
 }
