@@ -70,22 +70,26 @@ int main()
                 break;
             }
 
-            clock_gettime(CLOCK_MONOTONIC, &start);
+            
 
             switch (secondChoice)
             {
             case 1:
+                clock_gettime(CLOCK_MONOTONIC, &start);
                 periodNaiveMethod1(S);
+                clock_gettime(CLOCK_MONOTONIC, &end);
                 break;
             case 2:
+                clock_gettime(CLOCK_MONOTONIC, &start);
                 periodSmart(S);
+                clock_gettime(CLOCK_MONOTONIC, &end);
                 break;
             default:
                 printf("Valore non valido.\n");
                 break;
             }
 
-            clock_gettime(CLOCK_MONOTONIC, &end);
+            
 
             free(S);
 
