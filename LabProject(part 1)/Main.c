@@ -76,7 +76,8 @@ int main()
             {
             case 1:
                 clock_gettime(CLOCK_MONOTONIC, &start);
-                periodNaiveMethod1(S);
+                //periodNaiveMethod1(S);
+                periodNaiveMethod2(S);
                 clock_gettime(CLOCK_MONOTONIC, &end);
                 break;
             case 2:
@@ -97,12 +98,12 @@ int main()
 
             tempo += end.tv_nsec - start.tv_nsec;
 
-            printf("%d\n", tempo);
+            //printf("%d\n", tempo);
 
         } while (tempo < ((R / Emax) + R));
 
         long tn = tempo / k;
-
+        printf("%ld\n", tn);
         x[j] = n;
         y[j] = tn;
     }
