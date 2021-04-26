@@ -12,7 +12,7 @@
 #define A 1000           //lunghezza minima
 #define MAXLENGTH 500000 //lunghezza massima
 #define Emax 0.001       //Errore relativo massimo
-
+#define BILLION  1000000000L;
 int main()
 {
     int firstChoice, secondChoice;
@@ -38,7 +38,7 @@ int main()
     double x[100];
     double y[100];
 
-    for (int j = 0; j < 99; j++)
+    for (int j = 0; j <= 99; j++)
     {
         n = A * pow(B, j);
 
@@ -48,8 +48,8 @@ int main()
 
         int k = 0;
 
-        int tempo = 0;
-
+        double tempo = 0;
+        clock_gettime(CLOCK_MONOTONIC, &start);
         do
         {
             S = malloc((int)floor(n) + 1); //TODO: controlla uso memoria
@@ -75,13 +75,13 @@ int main()
             switch (secondChoice)
             {
             case 1:
-                clock_gettime(CLOCK_MONOTONIC, &start);
+                //clock_gettime(CLOCK_MONOTONIC, &start);
                 //periodNaiveMethod1(S);
-                periodNaiveMethod2(S);
+                periodNaiveMethod2(S);       
                 clock_gettime(CLOCK_MONOTONIC, &end);
                 break;
             case 2:
-                clock_gettime(CLOCK_MONOTONIC, &start);
+                //clock_gettime(CLOCK_MONOTONIC, &start);
                 periodSmart(S);
                 clock_gettime(CLOCK_MONOTONIC, &end);
                 break;
@@ -95,15 +95,15 @@ int main()
             free(S);
 
             k++;
+            tempo += ( end.tv_sec - start.tv_sec )+ ( end.tv_nsec - start.tv_nsec );  
+            
 
-            tempo += end.tv_nsec - start.tv_nsec;
-
-            //printf("%d\n", tempo);
+            
 
         } while (tempo < ((R / Emax) + R));
 
-        long tn = tempo / k;
-        printf("%ld\n", tn);
+        double tn = (tempo / k)/(double)BILLION;
+        printf("%i   %lf\n",(int)floor(n), tn);   
         x[j] = n;
         y[j] = tn;
     }
