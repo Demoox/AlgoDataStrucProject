@@ -57,14 +57,13 @@ void plot(double *x, double *y, int title, int desc)
 
 void plotDeviazione(double *x, double *y, double mean, double deviation)
 {
-
     char *commands[] = {
         "set xlabel \"j\"",
         "set ylabel \"time\"",
         "set autoscale",
         //"set logscale",
         "plot 'data' with points pointtype 7, 'mean' with lines, '+σ' with lines, '-σ' with lines",
-        };
+    };
 
     FILE *temp = fopen("data", "w");
     FILE *temp1 = fopen("mean", "w");
@@ -92,6 +91,33 @@ void plotDeviazione(double *x, double *y, double mean, double deviation)
 
     //------------------------------------------
     for (int i = 0; i < 4; i++)
+    {
+        fprintf(gnuplotPipe, "%s \n", commands[i]); //Send commands to gnuplot one by one.
+    }
+}
+
+void plotStringGenerationTime(double *x, double *y)
+{
+
+    char *commands[] = {
+        "set title \"Tempo di generazione stringhe\"",
+        "set xlabel \"lunghezza stringa\"",
+        "set ylabel \"tempo\"",
+        "set autoscale",
+        //"set logscale",
+        "plot 'data' with lines"};
+
+    FILE *temp = fopen("data", "w");
+
+    FILE *gnuplotPipe = popen("gnuplot -persistent", "w");
+
+    for (int i = 0; i < 99; i++)
+    {
+        fprintf(temp, "%lf %lf \n", x[i], y[i]); //Write the data to a temporary file
+    }
+
+    //------------------------------------------
+    for (int i = 0; i < 5; i++)
     {
         fprintf(gnuplotPipe, "%s \n", commands[i]); //Send commands to gnuplot one by one.
     }
