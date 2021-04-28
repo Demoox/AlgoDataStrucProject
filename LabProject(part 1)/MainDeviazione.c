@@ -8,6 +8,7 @@
 #include "PeriodSmart.h"
 #include "PeriodNaive.h"
 #include "Plot.c"
+#define BILLION 1000000000L;
 
 #define A 1000           //lunghezza minima
 #define MAXLENGTH 500000 //lunghezza massima
@@ -38,26 +39,24 @@ int main()
     double x[100];
     double y[100];
 
+    double tn = 0;
+
     double times[100];
     double sum = 0.0;
 
-
-    
-
-    #pragma region
-     
     for (int j = 0; j < 100; j++)
     {
-        n = 100;
+        n = 100000;
 
         struct timespec start, end;
 
-        long R = getResolution();
+        long R = getResolution() / (double)BILLION;
 
         int k = 0;
 
-        int tempo = 0;
+        double tempo = 0;
 
+        clock_gettime(CLOCK_MONOTONIC, &start);
         do
         {
             S = malloc((int)floor(n) + 1); //TODO: controlla uso memoria
@@ -78,17 +77,13 @@ int main()
                 break;
             }
 
-            
-
             switch (secondChoice)
             {
             case 1:
-                clock_gettime(CLOCK_MONOTONIC, &start);
                 periodNaiveMethod1(S);
                 clock_gettime(CLOCK_MONOTONIC, &end);
                 break;
             case 2:
-                clock_gettime(CLOCK_MONOTONIC, &start);
                 periodSmart(S);
                 clock_gettime(CLOCK_MONOTONIC, &end);
                 break;
@@ -97,53 +92,38 @@ int main()
                 break;
             }
 
-            
-
             free(S);
 
             k++;
 
-            tempo += end.tv_nsec - start.tv_nsec;
-            times[j] = tempo;
-            printf("%d\n", tempo);
-
-            sum = sum+ tempo;
+            tempo += (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / (double)BILLION;
 
         } while (tempo < ((R / Emax) + R));
 
-        double mean = sum/100;
+        tn = tempo / k;
+        sum = sum + tn;
+        printf("%i   %lf\n", (int)floor(n), tn);
+        times[j] = tn;
 
-        double sommatoria = 0.00;
-
-        for(int i = 0; i<n; i++){
-            sommatoria = sommatoria + pow((times[i] - mean),2);
-        }
-
-        double deviation = sqrt(sommatoria/100);
-
-        printf("La deviazione standard vale %f\n", deviation);
-
-        long tn = tempo / k;
-
-        x[j] = j+1;
+        x[j] = j + 1;
         y[j] = tn;
     }
 
-    plotSimple(x, y);
-    //-----------------------------------------------
-    
-    #pragma endregion
-/*
-    switch (secondChoice)
+    double mean = sum / 100;
+
+    double sommatoria = 0.00;
+
+    for (int i = 0; i < 100; i++)
     {
-    case 1:
-        plot(x, y, "PeriodNaive");
-        break;
-    case 2:
-        plot(x, y, "PeriodSmart");
-        break;
+        sommatoria = sommatoria + pow((times[i] - mean), 2);
     }
-    */
+
+    double deviation = sqrt(sommatoria / 100);
+
+    printf("La deviazione standard vale %f\n", deviation);
+
+    plotDeviazione(x, y, mean, deviation);
+    
 
     return 0;
 }

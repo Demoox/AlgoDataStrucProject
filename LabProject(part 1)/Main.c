@@ -12,7 +12,7 @@
 #define A 1000           //lunghezza minima
 #define MAXLENGTH 500000 //lunghezza massima
 #define Emax 0.001       //Errore relativo massimo
-#define BILLION  1000000000L;
+#define BILLION 1000000000L;
 int main()
 {
     int firstChoice, secondChoice;
@@ -38,72 +38,72 @@ int main()
     double x[100];
     double y[100];
 
+    double tn = 0;
+
     for (int j = 0; j <= 99; j++)
     {
         n = A * pow(B, j);
 
         struct timespec start, end;
 
-        long R = getResolution();
+        long R = getResolution() / (double)BILLION;
 
         int k = 0;
 
         double tempo = 0;
-        clock_gettime(CLOCK_MONOTONIC, &start);
-        do
+
+        if (tn < (double)2)
         {
-            S = malloc((int)floor(n) + 1); //TODO: controlla uso memoria
-
-            switch (firstChoice)
+            clock_gettime(CLOCK_MONOTONIC, &start);
+            do
             {
-            case 1:
-                firstMethod((int)floor(n), S);
-                break;
-            case 2:
-                secondMethod((int)floor(n), S);
-                break;
-            case 3:
-                thirdMethod((int)floor(n), S);
-                break;
-            default:
-                printf("Valore non valido.\n");
-                break;
-            }
+                S = malloc((int)floor(n) + 1); //TODO: controlla uso memoria
 
-            
+                switch (firstChoice)
+                {
+                case 1:
+                    firstMethod((int)floor(n), S);
+                    break;
+                case 2:
+                    secondMethod((int)floor(n), S);
+                    break;
+                case 3:
+                    thirdMethod((int)floor(n), S);
+                    break;
+                default:
+                    printf("Valore non valido.\n");
+                    break;
+                }
 
-            switch (secondChoice)
-            {
-            case 1:
-                //clock_gettime(CLOCK_MONOTONIC, &start);
-                //periodNaiveMethod1(S);
-                periodNaiveMethod2(S);       
-                clock_gettime(CLOCK_MONOTONIC, &end);
-                break;
-            case 2:
-                //clock_gettime(CLOCK_MONOTONIC, &start);
-                periodSmart(S);
-                clock_gettime(CLOCK_MONOTONIC, &end);
-                break;
-            default:
-                printf("Valore non valido.\n");
-                break;
-            }
+                switch (secondChoice)
+                {
+                case 1:
+                    //clock_gettime(CLOCK_MONOTONIC, &start);
+                    //periodNaiveMethod1(S);
+                    periodNaiveMethod2(S);
+                    clock_gettime(CLOCK_MONOTONIC, &end);
+                    break;
+                case 2:
+                    //clock_gettime(CLOCK_MONOTONIC, &start);
+                    periodSmart(S);
+                    clock_gettime(CLOCK_MONOTONIC, &end);
+                    break;
+                default:
+                    printf("Valore non valido.\n");
+                    break;
+                }
 
-            
+                free(S);
 
-            free(S);
+                k++;
+                tempo += (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / (double)BILLION;
 
-            k++;
-            tempo += ( end.tv_sec - start.tv_sec )+ ( end.tv_nsec - start.tv_nsec );  
-            
+            } while (tempo < ((R / Emax) + R));
 
-            
+            tn = (tempo / k);
+        }
 
-        } while (tempo < ((R / Emax) + R));
-
-        double tn = (tempo / k)/(double)BILLION;
-        printf("%i   %lf\n",(int)floor(n), tn);   
+        printf("%i   %lf\n", (int)floor(n), tn);
         x[j] = n;
         y[j] = tn;
     }

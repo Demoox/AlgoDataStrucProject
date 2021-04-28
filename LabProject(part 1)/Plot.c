@@ -12,7 +12,7 @@ void plot(double *x, double *y, int title, int desc)
         strcat(strtitle, "set title \"PeriodNaive");
         break;
     case 2:
-        strcat(strtitle, "set title \"PeriodNaive");
+        strcat(strtitle, "set title \"PeriodSmart");
         break;
     }
 
@@ -35,28 +35,27 @@ void plot(double *x, double *y, int title, int desc)
         strtitle,
         "set xlabel \"j\"",
         "set ylabel \"time\"",
-        /*"set autoscale",*/
-        "set logscale",
+        "set autoscale",
+        //"set logscale",
         "plot 'data' with lines"
         /*"plot 'data' with linespoints pointtype 7"*/};
 
     FILE *temp = fopen("data", "w");
     FILE *gnuplotPipe = popen("gnuplot -persistent", "w");
-    int i;
-    for (i = 0; i < 99; i++)
+
+    for (int i = 0; i < 99; i++)
     {
-        fprintf(temp, "%lf %lf \n", x[i], y[i]); //Write the data to a temporary file
+        if (y[i] < 2)
+            fprintf(temp, "%lf %lf \n", x[i], y[i]); //Write the data to a temporary file
     }
 
-    for (i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++)
     {
         fprintf(gnuplotPipe, "%s \n", commands[i]); //Send commands to gnuplot one by one.
     }
 }
 
-
-void plotSimple(double *x, double *y)
-
+void plotDeviazione(double *x, double *y, double mean, double deviation)
 {
 
     char *commands[] = {
@@ -64,19 +63,35 @@ void plotSimple(double *x, double *y)
         "set ylabel \"time\"",
         "set autoscale",
         //"set logscale",
-
-        "plot 'data' with lines"
-        /*"plot 'data' with linespoints pointtype 7"*/};
+        "plot 'data' with points pointtype 7, 'mean' with lines, '+σ' with lines, '-σ' with lines",
+        };
 
     FILE *temp = fopen("data", "w");
+    FILE *temp1 = fopen("mean", "w");
+    FILE *temp2 = fopen("+σ", "w");
+    FILE *temp3 = fopen("-σ", "w");
+
     FILE *gnuplotPipe = popen("gnuplot -persistent", "w");
-    int i;
-    for (i = 0; i < 99; i++)
+
+    for (int i = 0; i < 99; i++)
     {
         fprintf(temp, "%lf %lf \n", x[i], y[i]); //Write the data to a temporary file
     }
+    for (int i = 0; i < 99; i++)
+    {
+        fprintf(temp1, "%lf %lf \n", x[i], mean);
+    }
+    for (int i = 0; i < 99; i++)
+    {
+        fprintf(temp2, "%lf %lf \n", x[i], mean + deviation);
+    }
+    for (int i = 0; i < 99; i++)
+    {
+        fprintf(temp3, "%lf %lf \n", x[i], mean - deviation);
+    }
 
-    for (i = 0; i < 4; i++)
+    //------------------------------------------
+    for (int i = 0; i < 4; i++)
     {
         fprintf(gnuplotPipe, "%s \n", commands[i]); //Send commands to gnuplot one by one.
     }
