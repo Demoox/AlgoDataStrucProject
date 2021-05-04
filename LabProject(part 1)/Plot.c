@@ -29,7 +29,7 @@ void plot(double *x, double *y, int title, int desc)
         break;
     }
 
-    printf("%s", strtitle);
+    //printf("%s", strtitle);
 
     char *commands[] = {
         strtitle,
