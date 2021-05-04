@@ -8,11 +8,13 @@
 #include "PeriodSmart.h"
 #include "PeriodNaive.h"
 #include "Plot.c"
+#include "StringsTime.h"
 
 #define A 1000           //lunghezza minima
 #define MAXLENGTH 500000 //lunghezza massima
 #define Emax 0.001       //Errore relativo massimo
 #define BILLION 1000000000L;
+
 int main()
 {
     int firstChoice, secondChoice;
@@ -39,6 +41,9 @@ int main()
     double y[100];
 
     double tn = 0;
+
+    double *strGenTime;
+    strGenTime = StringGenerationTime(firstChoice);
 
     for (int j = 0; j <= 99; j++)
     {
@@ -78,13 +83,11 @@ int main()
                 switch (secondChoice)
                 {
                 case 1:
-                    //clock_gettime(CLOCK_MONOTONIC, &start);
                     //periodNaiveMethod1(S);
                     periodNaiveMethod2(S);
                     clock_gettime(CLOCK_MONOTONIC, &end);
                     break;
                 case 2:
-                    //clock_gettime(CLOCK_MONOTONIC, &start);
                     periodSmart(S);
                     clock_gettime(CLOCK_MONOTONIC, &end);
                     break;
@@ -100,7 +103,7 @@ int main()
 
             } while (tempo < ((R / Emax) + R));
 
-            tn = (tempo / k);
+            tn = (tempo / k) - strGenTime[j];
         }
 
         printf("%i   %lf\n", (int)floor(n), tn);

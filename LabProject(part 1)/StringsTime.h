@@ -5,31 +5,20 @@
 #include <time.h>
 #include <math.h>
 
-#include "StringCreator.c"
-#include "Plot.c"
-
 #define A 1000           //lunghezza minima
 #define MAXLENGTH 500000 //lunghezza massima
 #define Emax 0.001       //Errore relativo massimo
 #define BILLION 1000000000L;
 
-int main()
+double *StringGenerationTime(int generationMethod)
 {
-    int generationMethod;
-    printf("Scegli un metodo per creare la stringa:\n");
-    printf("1- Generazione pseudo-casuale\n");
-    printf("2- s(i) = s((i-1) mod q+1)\n");
-    printf("3- Variante del metodo 3 con aggiunta di lettera c\n");
-    printf("Metodo da usare: ");
-    scanf("%d", &generationMethod);
 
     double B = exp((log(MAXLENGTH) - log(A)) / 99);
     double n;
 
     char *S = NULL;
 
-    double x[100];
-    double y[100];
+    static double x[100];
 
     double tn = 0;
 
@@ -78,13 +67,9 @@ int main()
 
         tn = (tempo / k);
 
-        printf("%i   %lf\n", (int)floor(n), tn);
-        x[j] = n;
-        y[j] = tn;
+        //printf("%i   %lf\n", (int)floor(n), tn);
+        x[j] = tn;
     }
-    //-----------------------------------------------
 
-    plotStringGenerationTime(x, y);
-
-    return 0;
+    return x;
 }
