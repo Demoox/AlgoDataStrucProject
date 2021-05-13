@@ -83,8 +83,8 @@ int main()
                 switch (secondChoice)
                 {
                 case 1:
-                    periodNaiveMethod1(S);
-                    //periodNaiveMethod2(S);
+                    //periodNaiveMethod1(S);
+                    periodNaiveMethod2(S);
                     clock_gettime(CLOCK_MONOTONIC, &end);
                     break;
                 case 2:
@@ -103,12 +103,12 @@ int main()
 
             } while (tempo < ((R / Emax) + R));
 
-            //tn = (tempo / k) - strGenTime[j];
-            tn = (tempo / k);
+            tn = (tempo / k) - strGenTime[j];
+            
         }
 
-        //printf("%i   %lf\n", (int)floor(n), tn);
-        printf("%lf\n", tn);
+        printf("%i   %lf\n", (int)floor(n), tn);
+        
         x[j] = n;
         y[j] = tn;
     }
