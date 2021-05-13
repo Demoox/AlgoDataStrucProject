@@ -15,116 +15,7 @@ void thirdMethod();
 long getResolution();
 void plot();
 
-/*int mainoriginale()//nel calcolo del tempo viene incluso anche il tempo di creazione della stringa
-{
-    double B = exp((log(MAXLENGTH) - log(A)) / 99);
-    double n;
-
-    char *S = NULL;
-
-    double y[100];
-
-    for (int j = 0; j < 99; j++)
-    {
-        n = A * pow(B, j);
-
-        struct timespec start, end;
-
-        long R = getResolution();
-
-        clock_gettime(CLOCK_MONOTONIC, &start);
-
-        int k = 0;
-
-        do
-        {
-            S = malloc((int)floor(n) + 1); //TODO: controlla uso memoria
-
-            //firstMethod((int)floor(n), S);
-            secondMethod((int) floor(n),S);
-            //thirdMethod((int) floor(n),S);
-
-            //printf("%s\n\n\n", S);    //Stampa stringhe generate
-
-            periodSmart(S);
-
-            free(S);
-
-            clock_gettime(CLOCK_MONOTONIC, &end);
-
-            k++;
-
-        } while ((end.tv_nsec - start.tv_nsec) < ((R / Emax) + R));
-
-        long tn = (end.tv_nsec - start.tv_nsec) / k; //tempo medio per lunghezza n
-
-        //printf("%lu\n", tn);
-        y[j]=tn;
-    }
-
-    plot(y);
-
-    return 0;
-}*/
-
-/*int main()
-{
-    double B = exp((log(MAXLENGTH) - log(A)) / 99);
-    double n;
-
-    char *S = NULL;
-
-    double y[100];
-
-    for (int j = 0; j < 99; j++)
-    {
-        n = A * pow(B, j);
-
-        struct timespec start, end;
-
-        long R = getResolution();
-
-        int k = 0;
-
-        int tempo = 0;
-
-        do
-        {
-            S = malloc((int)floor(n) + 1); //TODO: controlla uso memoria
-
-            firstMethod((int)floor(n), S);
-            //secondMethod((int) floor(n),S);
-            //thirdMethod((int) floor(n),S);
-
-            //printf("%s\n\n\n", S);    //Stampa stringhe generate
-
-            clock_gettime(CLOCK_MONOTONIC, &start);
-
-            periodSmart(S);
-
-            clock_gettime(CLOCK_MONOTONIC, &end);
-
-            free(S);
-
-            k++;
-
-            tempo += end.tv_nsec - start.tv_nsec;
-
-            printf("%d\n", tempo);
-
-        } while (tempo < ((R / Emax) + R));
-
-        long tn = tempo / k; //tempo medio per lunghezza n
-
-        //printf("%lu\n", tn);
-        y[j] = tn;
-    }
-
-    plot(y);
-
-    return 0;
-}*/
-
+//Modo 1:generazione pseudo-casuale della stringa.
 void firstMethod(int length, char *S)
 {
     for (int i = 0; i < length; i++)
@@ -138,6 +29,10 @@ void firstMethod(int length, char *S)
     S[length] = '\0';
 }
 
+/*
+MOdo 2: generazione pseudo-casuale del periodo frazionario q, poi generazione della sotto-stringa da s[1] a s[q] e infine 
+completamento della stringa secondo la regola s[i] = s[(i-1)%q +1].
+*/
 void secondMethod(int n, char *S)
 {
     int q = (rand() % n + 1);
@@ -154,7 +49,9 @@ void secondMethod(int n, char *S)
 
     S[n] = '\0';
 }
-
+/*
+Modo 3: variante del modo 2 con l'inserimento del carattere "c" in s[q].
+*/
 void thirdMethod(int n, char *S)
 {
     int q = (rand() % n + 1);

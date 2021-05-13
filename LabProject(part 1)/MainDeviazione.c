@@ -8,8 +8,9 @@
 #include "PeriodSmart.h"
 #include "PeriodNaive.h"
 #include "Plot.c"
-#define BILLION 1000000000L;
+#include "StringsTime.h"
 
+#define BILLION 1000000000L;
 #define A 1000           //lunghezza minima
 #define MAXLENGTH 500000 //lunghezza massima
 #define Emax 0.001       //Errore relativo massimo
@@ -32,7 +33,7 @@ int main()
     //-----------------------------------------------
 
     double B = exp((log(MAXLENGTH) - log(A)) / 99);
-    double n;
+    double n = 100000;
 
     char *S = NULL;
 
@@ -41,12 +42,14 @@ int main()
 
     double tn = 0;
 
+    double strGenTime;
+    strGenTime = SingleStringGenerationTime(firstChoice, n);
+
     double times[100];
     double sum = 0.0;
 
     for (int j = 0; j < 100; j++)
     {
-        n = 100000;
 
         struct timespec start, end;
 
@@ -100,7 +103,7 @@ int main()
 
         } while (tempo < ((R / Emax) + R));
 
-        tn = tempo / k;
+        tn = (tempo / k) - strGenTime;
         sum = sum + tn;
         printf("%i   %lf\n", (int)floor(n), tn);
         times[j] = tn;
@@ -123,7 +126,6 @@ int main()
     printf("La deviazione standard vale %f\n", deviation);
 
     plotDeviazione(x, y, mean, deviation);
-    
 
     return 0;
 }
