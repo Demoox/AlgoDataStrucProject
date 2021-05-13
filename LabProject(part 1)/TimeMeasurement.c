@@ -104,9 +104,11 @@ int main()
             } while (tempo < ((R / Emax) + R));
 
             tn = (tempo / k) - strGenTime[j];
+            
         }
 
         printf("%i   %lf\n", (int)floor(n), tn);
+        
         x[j] = n;
         y[j] = tn;
     }
