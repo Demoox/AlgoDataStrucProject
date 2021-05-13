@@ -10,7 +10,7 @@
 #define Emax 0.001       //Errore relativo massimo
 #define BILLION 1000000000L;
 
-double *StringGenerationTime(int generationMethod)
+double *StringsGenerationTime(int generationMethod)
 {
 
     double B = exp((log(MAXLENGTH) - log(A)) / 99);
@@ -72,4 +72,69 @@ double *StringGenerationTime(int generationMethod)
     }
 
     return x;
+}
+
+double SingleStringGenerationTime(int generationMethod, int stringLength)
+{
+    char *S = NULL;
+
+    static double x[100];
+
+    double tn = 0;
+
+    for (int j = 0; j <= 99; j++)
+    {
+        struct timespec start, end;
+
+        long R = getResolution() / (double)BILLION;
+
+        int k = 0;
+
+        double tempo = 0;
+
+        clock_gettime(CLOCK_MONOTONIC, &start);
+        do
+        {
+            S = malloc(stringLength + 1); //TODO: controlla uso memoria
+
+            switch (generationMethod)
+            {
+            case 1:
+                firstMethod(stringLength, S);
+                clock_gettime(CLOCK_MONOTONIC, &end);
+                break;
+            case 2:
+                secondMethod(stringLength, S);
+                clock_gettime(CLOCK_MONOTONIC, &end);
+                break;
+            case 3:
+                thirdMethod(stringLength, S);
+                clock_gettime(CLOCK_MONOTONIC, &end);
+                break;
+            default:
+                printf("Valore non valido.\n");
+                break;
+            }
+
+            free(S);
+
+            k++;
+            tempo += (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / (double)BILLION;
+
+        } while (tempo < ((R / Emax) + R));
+
+        tn = (tempo / k);
+
+        //printf("%i   %lf\n", (int)floor(n), tn);
+        x[j] = tn;
+    }
+
+    double mean = 0;
+
+    for (int i = 0; i < 99; i++)
+        mean += x[i];
+
+    mean = mean / 100;
+
+    return mean;
 }

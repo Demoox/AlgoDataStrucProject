@@ -43,7 +43,7 @@ int main()
     double tn = 0;
 
     double *strGenTime;
-    strGenTime = StringGenerationTime(firstChoice);
+    strGenTime = StringsGenerationTime(firstChoice);
 
     for (int j = 0; j <= 99; j++)
     {
