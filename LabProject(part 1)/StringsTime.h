@@ -78,21 +78,17 @@ double SingleStringGenerationTime(int generationMethod, int stringLength)
 {
     char *S = NULL;
 
-    static double x[100];
-
     double tn = 0;
 
-    for (int j = 0; j <= 99; j++)
-    {
-        struct timespec start, end;
+    struct timespec start, end;
 
-        long R = getResolution() / (double)BILLION;
+    long R = getResolution() / (double)BILLION;
 
-        int k = 0;
+    int k = 0;
 
-        double tempo = 0;
+    double tempo = 0;
 
-        clock_gettime(CLOCK_MONOTONIC, &start);
+    clock_gettime(CLOCK_MONOTONIC, &start);
         do
         {
             S = malloc(stringLength + 1); //TODO: controlla uso memoria
@@ -124,17 +120,5 @@ double SingleStringGenerationTime(int generationMethod, int stringLength)
         } while (tempo < ((R / Emax) + R));
 
         tn = (tempo / k);
-
-        //printf("%i   %lf\n", (int)floor(n), tn);
-        x[j] = tn;
-    }
-
-    double mean = 0;
-
-    for (int i = 0; i < 99; i++)
-        mean += x[i];
-
-    mean = mean / 100;
-
-    return mean;
+        return tn;
 }
