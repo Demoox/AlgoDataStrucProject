@@ -74,37 +74,39 @@ double *StringsGenerationTime(int generationMethod)
     return x;
 }
 
-double SingleStringGenerationTime(int generationMethod, int stringLength)
+double SingleStringGenerationTime(int generationMethod, double n)
 {
     char *S = NULL;
 
-    double tn = 0;
+    double time_sum =0;
 
-    struct timespec start, end;
+    for (int j = 0; j <= 99; j++)
+    {
+        struct timespec start, end;
 
-    long R = getResolution() / (double)BILLION;
+        long R = getResolution() / (double)BILLION;
 
-    int k = 0;
+        int k = 0;
 
-    double tempo = 0;
-
-    clock_gettime(CLOCK_MONOTONIC, &start);
+        double tempo = 0;
+        
+        clock_gettime(CLOCK_MONOTONIC, &start);
         do
         {
-            S = malloc(stringLength + 1); //TODO: controlla uso memoria
+            S = malloc((int)floor(n) + 1); //TODO: controlla uso memoria
 
             switch (generationMethod)
             {
             case 1:
-                firstMethod(stringLength, S);
+                firstMethod((int)floor(n), S);
                 clock_gettime(CLOCK_MONOTONIC, &end);
                 break;
             case 2:
-                secondMethod(stringLength, S);
+                secondMethod((int)floor(n), S);
                 clock_gettime(CLOCK_MONOTONIC, &end);
                 break;
             case 3:
-                thirdMethod(stringLength, S);
+                thirdMethod((int)floor(n), S);
                 clock_gettime(CLOCK_MONOTONIC, &end);
                 break;
             default:
@@ -119,6 +121,8 @@ double SingleStringGenerationTime(int generationMethod, int stringLength)
 
         } while (tempo < ((R / Emax) + R));
 
-        tn = (tempo / k);
-        return tn;
+        time_sum += (tempo / k);
+    }
+
+    return time_sum/100;
 }
