@@ -107,6 +107,7 @@ int main()
 
         tn = (tempo / k) - strGenTime;
         sum = sum + tn;
+        
         printf("%i   %lf\n", (int)floor(n), tn);
         times[j] = tn;
 
