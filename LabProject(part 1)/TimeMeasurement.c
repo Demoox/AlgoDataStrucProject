@@ -48,17 +48,18 @@ int main()
     for (int j = 0; j <= 99; j++)
     {
         n = A * pow(B, j);
+        double time_sum=0;
+        for(int w=0; w<=999; w++){
+         struct timespec start, end;
 
-        struct timespec start, end;
+         long R = getResolution() / (double)BILLION;
 
-        long R = getResolution() / (double)BILLION;
+         int k = 0;
 
-        int k = 0;
+         double tempo = 0;
 
-        double tempo = 0;
-
-        if (tn < (double)2)
-        {
+         //if (tn < (double)2)
+         //{
             clock_gettime(CLOCK_MONOTONIC, &start);
             do
             {
@@ -102,15 +103,19 @@ int main()
                 
                 tempo = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / (double)BILLION;
             } while (tempo < ((R / Emax) + R));
-
-            tn = (tempo / k);// - strGenTime[j];
+            time_sum += tempo / k;
+            //tn = (tempo / k) - strGenTime[j];
             
+          //}
         }
-
+        tn=(time_sum/1000) - strGenTime[j];
         printf("%i   %lf\n", (int)floor(n), tn);
         
         x[j] = n;
         y[j] = tn;
+    
+    
+    
     }
     //-----------------------------------------------
 
