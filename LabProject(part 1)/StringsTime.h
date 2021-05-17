@@ -61,8 +61,8 @@ double *StringsGenerationTime(int generationMethod)
             free(S);
 
             k++;
-            tempo += (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / (double)BILLION;
-
+            
+            tempo = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / (double)BILLION;
         } while (tempo < ((R / Emax) + R));
 
         tn = (tempo / k);
@@ -117,12 +117,12 @@ double SingleStringGenerationTime(int generationMethod, double n)
             free(S);
 
             k++;
-            tempo += (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / (double)BILLION;
+            tempo = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / (double)BILLION;
 
         } while (tempo < ((R / Emax) + R));
 
         time_sum += (tempo / k);
-    }
+   }
 
     return time_sum/100;
 }
