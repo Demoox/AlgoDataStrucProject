@@ -53,7 +53,7 @@ int main()
 
         struct timespec start, end;
 
-        long R = getResolution() / (double)BILLION;
+        long R = getResolution()/ (double)BILLION;
 
         int k = 0;
 
@@ -102,6 +102,8 @@ int main()
             tempo += (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / (double)BILLION;
 
         } while (tempo < ((R / Emax) + R));
+
+        
 
         tn = (tempo / k) - strGenTime;
         sum = sum + tn;
