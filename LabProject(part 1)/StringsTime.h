@@ -25,18 +25,21 @@ double *StringsGenerationTime(int generationMethod)
     for (int j = 0; j <= 99; j++)
     {
         n = A * pow(B, j);
-
-        struct timespec start, end;
-
-        long R = getResolution() / (double)BILLION;
-
-        int k = 0;
-
-        double tempo = 0;
-
-        clock_gettime(CLOCK_MONOTONIC, &start);
-        do
+        double time_sum =0;
+        
+        for(int w=0; w<=999; w++)
         {
+          struct timespec start, end;
+  
+          long R = getResolution() / (double)BILLION;
+
+          int k = 0;
+
+          double tempo = 0;
+
+          clock_gettime(CLOCK_MONOTONIC, &start);
+          do
+          {
             S = malloc((int)floor(n) + 1); //TODO: controlla uso memoria
 
             switch (generationMethod)
@@ -63,13 +66,12 @@ double *StringsGenerationTime(int generationMethod)
             k++;
             
             tempo = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / (double)BILLION;
-        } while (tempo < ((R / Emax) + R));
-
-        tn = (tempo / k);
-
-        //printf("%i   %lf\n", (int)floor(n), tn);
-        x[j] = tn;
+          } while (tempo < ((R / Emax) + R));
+            time_sum += (tempo / k);
+        }
+        x[j] = time_sum/1000;
     }
+    
 
     return x;
 }
@@ -80,7 +82,7 @@ double SingleStringGenerationTime(int generationMethod, double n)
 
     double time_sum =0;
 
-    for (int j = 0; j <= 99; j++)
+    for (int j = 0; j <= 999; j++)
     {
         struct timespec start, end;
 
@@ -124,5 +126,5 @@ double SingleStringGenerationTime(int generationMethod, double n)
         time_sum += (tempo / k);
    }
 
-    return time_sum/100;
+    return time_sum/1000;
 }
