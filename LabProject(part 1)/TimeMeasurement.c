@@ -99,11 +99,11 @@ int main()
                 free(S);
 
                 k++;
-                tempo += (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / (double)BILLION;
-
+                
+                tempo = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / (double)BILLION;
             } while (tempo < ((R / Emax) + R));
 
-            tn = (tempo / k) - strGenTime[j];
+            tn = (tempo / k);// - strGenTime[j];
             
         }
 
