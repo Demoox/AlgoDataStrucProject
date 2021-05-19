@@ -34,6 +34,7 @@ int main()
 
     double B = exp((log(MAXLENGTH) - log(A)) / 99);
     double n;
+    int measurePrec = 50;
 
     char *S = NULL;
 
@@ -49,7 +50,7 @@ int main()
     {
         n = A * pow(B, j);
         double time_sum=0;
-        for(int w=0; w<=999; w++){
+        for(int w=0; w<measurePrec; w++){
          struct timespec start, end;
 
          long R = getResolution() / (double)BILLION;
@@ -108,7 +109,7 @@ int main()
             
           //}
         }
-        tn=(time_sum/1000) - strGenTime[j];
+        tn=(time_sum/measurePrec) - strGenTime[j];
         printf("%i   %lf\n", (int)floor(n), tn);
         
         x[j] = n;
