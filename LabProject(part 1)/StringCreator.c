@@ -4,18 +4,15 @@
 #include <string.h>
 #include <time.h>
 #include <math.h>
-//#include "PeriodSmart.c"
-#define A 1000           //lunghezza minima
-#define MAXLENGTH 500000 //lunghezza massima
-#define Emax 0.001       //Errore relativo massimo
 
 void firstMethod();
 void secondMethod();
 void thirdMethod();
 long getResolution();
-void plot();
 
-//Modo 1:generazione pseudo-casuale della stringa.
+/*
+Metodo 1:generazione pseudo-casuale della stringa.
+*/
 void firstMethod(int length, char *S)
 {
     for (int i = 0; i < length; i++)
@@ -30,7 +27,7 @@ void firstMethod(int length, char *S)
 }
 
 /*
-MOdo 2: generazione pseudo-casuale del periodo frazionario q, poi generazione della sotto-stringa da s[1] a s[q] e infine 
+Metodo 2: generazione pseudo-casuale del periodo frazionario q, poi generazione della sotto-stringa da s[1] a s[q] e infine 
 completamento della stringa secondo la regola s[i] = s[(i-1)%q +1].
 */
 void secondMethod(int n, char *S)
@@ -49,8 +46,9 @@ void secondMethod(int n, char *S)
 
     S[n] = '\0';
 }
+
 /*
-Modo 3: variante del modo 2 con l'inserimento del carattere "c" in s[q].
+Metodo 3: variante del modo 2 con l'inserimento del carattere "c" in s[q].
 */
 void thirdMethod(int n, char *S)
 {
@@ -81,5 +79,3 @@ long getResolution()
     } while (start.tv_nsec == end.tv_nsec);
     return (end.tv_nsec - start.tv_nsec);
 }
-
-//ctrl + shift + i auto-indent

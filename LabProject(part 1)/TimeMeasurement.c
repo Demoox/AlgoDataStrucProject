@@ -32,17 +32,17 @@ int main()
     scanf("%d", &algorithmChoice);
 
     double B = exp((log(MAXLENGTH) - log(A)) / 99);
-    double n;            //lunghezza stringa
-    int measurePrec = 50; //indice di precisione della misura
+    double n;                                   //lunghezza stringa
+    int measurePrec = 100;                       //indice di precisione della misura
 
     char *S = NULL; //stringa generata
 
-    double x[100]; //array contenente le lunghezza della stringa alla j-esima iterazione
-    double y[100]; //array contenente il tempo impiegato dall'algoritmo alla j-esima iterazione
-    double tn = 0; //tempo medio misurato
+    double x[100];                                  //array contenente le lunghezza della stringa alla j-esima iterazione
+    double y[100];                                  //array contenente il tempo impiegato dall'algoritmo alla j-esima iterazione
+    double tn = 0;                                  //tempo medio misurato
 
-    double *strGenTime;                               //array contenente i tempi medi impiegati per generare le strighe
-    strGenTime = StringsGenerationTime(methodChoice); //strGenTime[j] = tempo medio misurato per generare la stringa di lunghezza n=floor(A*B^j)
+    double *strGenTime;                                                 //array contenente i tempi medi impiegati per generare le strighe
+    strGenTime = StringsGenerationTime(methodChoice);                   //strGenTime[j] = tempo medio misurato per generare la stringa di lunghezza n=floor(A*B^j)
 
     for (int j = 0; j <= 99; j++)
     {

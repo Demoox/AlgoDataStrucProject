@@ -33,7 +33,7 @@ void plot(double *x, double *y, int title, int desc)
 
     char *commands[] = {
         strtitle,
-        "set xlabel \"j\"",
+        "set xlabel \"n\"",
         "set ylabel \"time\"",
         "set autoscale",
         //"set logscale",
@@ -58,7 +58,7 @@ void plot(double *x, double *y, int title, int desc)
 void plotDeviazione(double *x, double *y, double mean, double deviation)
 {
     char *commands[] = {
-        "set xlabel \"j\"",
+        "set xlabel \"n\"",
         "set ylabel \"time\"",
         "set autoscale",
         //"set logscale",

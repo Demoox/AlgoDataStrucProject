@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
+
+
 int periodNaiveMethod1(char *S)
 {
     int n = strlen(S);
@@ -13,7 +16,6 @@ int periodNaiveMethod1(char *S)
                 break;
             }
         }
-
         if(i == n - p)
         return p;
         

@@ -37,15 +37,15 @@ int main()
 
     char *S = NULL;
 
-    double x[100];
-    double y[100];
+    double x[100];                                                              //array contenente lunghezza della stringa all'iterazione j
+    double y[100];                                                              //array contenente il tempo impiegato dall'algoritmo all'iterazione j 
 
     double tn = 0;
 
-    double strGenTime;
-    strGenTime = SingleStringGenerationTime(firstChoice, n);
+    double strGenTime;                                                          //array contenente i tempi medi impiegati per generare le strighe
+    strGenTime = SingleStringGenerationTime(firstChoice, n);                    //strGenTime[j] = tempo medio misurato per generare la stringa di lunghezza n=floor(A*B^j)
 
-    double times[100];
+    double times[100];                                                              
     double sum = 0.0;
 
     for (int j = 0; j < 100; j++)
@@ -105,8 +105,8 @@ int main()
 
         
 
-        tn = (tempo / k) - strGenTime;
-        sum = sum + tn;
+        tn = (tempo / k) - strGenTime;                                                      //tempo medio di esecuzione dell'algoritmo
+        sum = sum + tn;                                                                     //incremento della somma dei tempi medi per il calcolo della deviazione
         
         printf("%i   %lf\n", (int)floor(n), tn);
         times[j] = tn;
@@ -115,20 +115,20 @@ int main()
         y[j] = tn;
     }
 
-    double mean = sum / 100;
+    double mean = sum / 100;                                                                //calcolo della media dei tempi medi di esecuzione (nel nostro caso 100) con una stringa di lunghezza 100k
 
-    double sommatoria = 0.00;
+    double sommatoria = 0.00;                                                               //inizio del calcolo della deviazione
+    
+    for (int i = 0; i < 100; i++)                                                           
+    {                                                                                       
+        sommatoria = sommatoria + pow((times[i] - mean), 2);                                
+    }                                                                                       
 
-    for (int i = 0; i < 100; i++)
-    {
-        sommatoria = sommatoria + pow((times[i] - mean), 2);
-    }
+    double deviation = sqrt(sommatoria / 100);                                              //fine calcolo deviazione standard
 
-    double deviation = sqrt(sommatoria / 100);
+    printf("La deviazione standard vale %f\n", deviation);                                  //Print del valore su terminale
 
-    printf("La deviazione standard vale %f\n", deviation);
+    plotDeviazione(x, y, mean, deviation);                                                  //Creazione del grafico utilizzando GNUPlot
 
-    plotDeviazione(x, y, mean, deviation);
-
-    return 0;
+    return 0;                                                                               
 }
