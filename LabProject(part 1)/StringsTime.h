@@ -10,6 +10,8 @@
 #define Emax 0.001       //Errore relativo massimo
 #define BILLION 1000000000L;
 
+//Questa funzione serve a calcolare il tempo medio di generazione delle stringhe in base al metodo di generazione utilizzato,
+//questo per migliorare la misurazione effettuata nel file TimeMeasurement
 double *StringsGenerationTime(int generationMethod)
 {
 
@@ -40,7 +42,7 @@ double *StringsGenerationTime(int generationMethod)
           clock_gettime(CLOCK_MONOTONIC, &start);
           do
           {
-            S = malloc((int)floor(n) + 1); //TODO: controlla uso memoria
+            S = malloc((int)floor(n) + 1);
 
             switch (generationMethod)
             {
@@ -76,6 +78,8 @@ double *StringsGenerationTime(int generationMethod)
     return x;
 }
 
+//Questa funzione serve a calcolare il tempo medio di generazione di una stringa lunga n e generata con il metodo dato in input,
+//questo per migliorare la misurazione effettuata nel file MainDeviazione
 double SingleStringGenerationTime(int generationMethod, double n)
 {
     char *S = NULL;
@@ -95,7 +99,7 @@ double SingleStringGenerationTime(int generationMethod, double n)
         clock_gettime(CLOCK_MONOTONIC, &start);
         do
         {
-            S = malloc((int)floor(n) + 1); //TODO: controlla uso memoria
+            S = malloc((int)floor(n) + 1);
 
             switch (generationMethod)
             {

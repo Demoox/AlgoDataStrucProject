@@ -62,7 +62,7 @@ int main()
         clock_gettime(CLOCK_MONOTONIC, &start);
         do
         {
-            S = malloc((int)floor(n) + 1); //TODO: controlla uso memoria
+            S = malloc((int)floor(n) + 1);
 
             switch (firstChoice)
             {

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//Funzione usata per eseguire il plot dei dati riguardanti gli algoritmi PeriodNaive e PeriodSmart
 void plot(double *x, double *y, int title, int desc)
 {
 
@@ -55,6 +56,7 @@ void plot(double *x, double *y, int title, int desc)
     }
 }
 
+//Funzione usata per eseguire il plot dei dati riguardanti la devizione standard
 void plotDeviazione(double *x, double *y, double mean, double deviation)
 {
     char *commands[] = {
@@ -96,6 +98,7 @@ void plotDeviazione(double *x, double *y, double mean, double deviation)
     }
 }
 
+//Funzione usata per eseguire il plot dei dati riguardanti Il tempo di generazione delle stringhe
 void plotStringGenerationTime(double *x, double *y)
 {
 
